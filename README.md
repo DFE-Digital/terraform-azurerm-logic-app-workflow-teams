@@ -1,19 +1,17 @@
-# <REPLACE WITH USEFUL TERRAFORM DESCRIPTION>
+# terraform-azurerm-logic-app-workflow-teams
 
-[![Terraform CI](./actions/workflows/continuous-integration-terraform.yml/badge.svg?branch=main)](./actions/workflows/continuous-integration-terraform.yml?branch=main)
-[![GitHub release](https://img.shields.io/github/release/<ORG>/<REPO>.svg)](./releases)
+[![Terraform CI](https://github.com/DFE-Digital/terraform-azurerm-logic-app-workflow-teams/actions/workflows/continuous-integration-terraform.yml/badge.svg?branch=main)](https://github.com/DFE-Digital/terraform-azurerm-logic-app-workflow-teams/actions/workflows/continuous-integration-terraform.yml?branch=main)
+[![GitHub release](https://img.shields.io/github/release/DFE-Digital/terraform-azurerm-logic-app-workflow-teams.svg)](./releases)
 
-This <module/project> creates and manages <REPLACE WITH MAIN RESOURCE NAMES/URLS>.
+This module creates and manages an Azure Logic App Workflow that can route alerts into Teams
 
 ## Usage
 
 Example module usage:
 
 ```hcl
-module "<MODULE NAME>" {
-  source  = "github.com/<ORG>/<MODULE NAME>?ref=v<VERSION>"
-
-  environment = "dev/staging/test/pre-prod/prod/post-prod"
+module "azurerm_logic_app_workflow_teams" {
+  source  = "github.com/DFE-Digital/terraform-azurerm-logic-app-workflow-teams?ref=v0.0.1"
 }
 ```
 
@@ -22,7 +20,7 @@ module "<MODULE NAME>" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.3 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.13.3 |
 
 ## Providers
 
@@ -34,13 +32,9 @@ No resources.
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_environment"></a> [environment](#input\_environment) | Environment name | `string` | n/a | yes |
+No inputs.
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_environment"></a> [environment](#output\_environment) | n/a |
+No outputs.
 <!-- END_TF_DOCS -->
