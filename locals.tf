@@ -21,11 +21,14 @@ locals {
   var_affected_resource = templatefile("${path.module}/templates/variables/affected-resource.json.tpl", {})
   var_webhook_map = templatefile("${path.module}/templates/variables/webhook-map.json.tpl", {
     map = jsonencode({ for resource_group, webhook in local.resource_group_target_webhooks : (resource_group) => {
-      "webhook_url" : webhook.webhook_url,
+      "webhook_url" : split("?", webhook.webhook_url)[0],
+      "webhook_queries" : { for s in split("&", split("?", webhook.webhook_url)[1]) : split("=", s)[0] => split("=", s)[1]}
       "message_tag" : webhook.message_tag,
-      "error_webhook_url" : webhook.error_webhook_url != "" ? webhook.error_webhook_url : webhook.webhook_url,
+      "error_webhook_url" : webhook.error_webhook_url != "" ? split("?", webhook.error_webhook_url)[0] : split("?", webhook.webhook_url)[0],
+      "error_webhook_queries" : webhook.error_webhook_url != "" ? { for s in split("&", split("?", webhook.error_webhook_url)[1]) : split("=", s)[0] => split("=", s)[1]} : { for s in split("&", split("?", webhook.webhook_url)[1]) : split("=", s)[0] => split("=", s)[1]}
       "error_message_tag" : webhook.error_message_tag != "" ? webhook.error_message_tag : webhook.message_tag,
-      "sev1_webhook_url" : webhook.sev1_webhook_url != "" ? webhook.sev1_webhook_url : webhook.webhook_url,
+      "sev1_webhook_url" : webhook.sev1_webhook_url != "" ? split("?", webhook.sev1_webhook_url)[0] : split("?", webhook.webhook_url)[0],
+      "sev1_webhook_queries" : webhook.sev1_webhook_url != "" ? { for s in split("&", split("?", webhook.sev1_webhook_url)[1]) : split("=", s)[0] => split("=", s)[1]} : { for s in split("&", split("?", webhook.webhook_url)[1]) : split("=", s)[0] => split("=", s)[1]}
       "sev1_message_tag" : webhook.sev1_message_tag != "" ? webhook.sev1_message_tag : webhook.message_tag,
       }
     })
@@ -66,7 +69,8 @@ locals {
         "Content-Type" : "application/json"
       })
       method      = "POST"
-      uri         = local.waf_logs_webhook_url
+      uri         = split("?", local.waf_logs_webhook_url)[0]
+      queries     = { for s in split("&", split("?", local.waf_logs_webhook_url)[1]) : split("=", s)[0] => split("=", s)[1]}
       description = "Send WAF Log alert to Teams Channel"
     }
   )
@@ -147,6 +151,7 @@ locals {
       description = "Send an Activity Log alert to Teams"
       method      = "POST"
       uri         = "@variables('webhookMap')[variables('resourceGroup')]['webhook_url']"
+      queries     = "@variables('webhookMap')[variables('resourceGroup')]['webhook_queries']"
     }
   )
 
@@ -165,6 +170,7 @@ locals {
       description = "Send a Metric alert to Slack Channel"
       method      = "POST"
       uri         = "@if(or(equals(variables('alarmSeverity'), 'Sev1'), equals(variables('alarmSeverity'), 'Sev0')), variables('webhookMap')[variables('resourceGroup')]['sev1_webhook_url'], variables('webhookMap')[variables('resourceGroup')]['webhook_url'])"
+      queries         = "@if(or(equals(variables('alarmSeverity'), 'Sev1'), equals(variables('alarmSeverity'), 'Sev0')), variables('webhookMap')[variables('resourceGroup')]['sev1_webhook_queries'], variables('webhookMap')[variables('resourceGroup')]['webhook_queries'])"
     }
   )
 
@@ -183,6 +189,7 @@ locals {
       description = "Send an Error alert to Teams"
       method      = "POST"
       uri         = "@variables('webhookMap')[variables('resourceGroup')]['error_webhook_url']"
+      queries     = "@variables('webhookMap')[variables('resourceGroup')]['error_webhook_queries']"
     }
   )
 
@@ -201,6 +208,7 @@ locals {
       description = "Send a Log alert to Slack Channel"
       method      = "POST"
       uri         = "@if(or(equals(variables('alarmSeverity'), 'Sev1'), equals(variables('alarmSeverity'), 'Sev0')), variables('webhookMap')[variables('resourceGroup')]['sev1_webhook_url'], variables('webhookMap')[variables('resourceGroup')]['webhook_url'])"
+      queries     = "@if(or(equals(variables('alarmSeverity'), 'Sev1'), equals(variables('alarmSeverity'), 'Sev0')), variables('webhookMap')[variables('resourceGroup')]['sev1_webhook_queries'], variables('webhookMap')[variables('resourceGroup')]['webhook_queries'])"
     }
   )
 

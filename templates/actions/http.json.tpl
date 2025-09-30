@@ -5,7 +5,7 @@
     "uri": "${uri}",
     "method": "${method}",
     "headers": ${headers},
-    "queries": {},
+    "queries": ${queries},
     "body": ${body}
   }
 }
