@@ -24,27 +24,27 @@
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Alert Rule:* @{triggerBody()?['data']?['essentials']?['alertRule']} \n*Description:* @{triggerBody()?['data']?['essentials']?['description']}"
+            "text": "**Alert Rule:** @{triggerBody()?['data']?['essentials']?['alertRule']} \n*Description:* @{triggerBody()?['data']?['essentials']?['description']}"
           },
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Resource:* \n <@{concat('https://portal.azure.com/#@', variables('tenantID'))}/resource@{triggerBody()?['data']?['essentials']?['alertTargetIDs']?[0]}|@{triggerBody()?['data']?['essentials']?['configurationItems']?[0]}>"
+            "text": "**Resource:** \n [@{triggerBody()?['data']?['essentials']?['configurationItems']?[0]}](@{concat('https://portal.azure.com/#@', variables('tenantID'))}/resource@{triggerBody()?['data']?['essentials']?['alertTargetIDs']?[0]})"
           },
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Type:* \n @{triggerBody()?['data']?['essentials']?['targetResourceType']}"
+            "text": "**Type:** \n @{triggerBody()?['data']?['essentials']?['targetResourceType']}"
           },
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Caller:* @{variables('alarmContext')['caller']}"
+            "text": "**Caller:** @{variables('alarmContext')['caller']}"
           },
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "Operation:* \n@{variables('alarmContext')['operationName']} (@{variables('alarmContext')['status']})"
+            "text": "**Operation:** \n@{variables('alarmContext')['operationName']} (@{variables('alarmContext')['status']})"
           }
         ]
       }

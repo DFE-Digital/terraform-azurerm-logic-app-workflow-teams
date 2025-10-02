@@ -12,7 +12,7 @@
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": ":warning: @{triggerBody()?['data']?['essentials']?['description']}"
+            "text": "⚠️  @{triggerBody()?['data']?['essentials']?['description']}"
           },
           %{ if message_tag != "" }
           {
@@ -24,12 +24,12 @@
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Hostname:* @{variables('alarmContext')['condition']['allOf'][0]['dimensions'][1]['value']}"
+            "text": "**Hostname:** @{variables('alarmContext')['condition']['allOf'][0]['dimensions'][1]['value']}"
           },
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "A HTTP request was `@{variables('alarmContext')['condition']['allOf'][0]['dimensions'][0]['value']}` by ruleset `@{variables('alarmContext')['condition']['allOf'][0]['dimensions'][2]['value']}`. \n<@{variables('alarmContext')['condition']['allOf'][0]['linkToFilteredSearchResultsUI']}|Go to Log Analytics and run query>"
+            "text": "A HTTP request was `@{variables('alarmContext')['condition']['allOf'][0]['dimensions'][0]['value']}` by ruleset `@{variables('alarmContext')['condition']['allOf'][0]['dimensions'][2]['value']}`. \n[Go to Log Analytics and run query](@{variables('alarmContext')['condition']['allOf'][0]['linkToFilteredSearchResultsUI']})"
           }
         ]
       }
