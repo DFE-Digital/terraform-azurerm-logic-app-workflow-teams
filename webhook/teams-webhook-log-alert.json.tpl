@@ -11,32 +11,39 @@
         "body": [
           {
             "type": "TextBlock",
+            "wrap": true,
             "text": "@{triggerBody()?['data']?['essentials']?['alertRule']}: @{triggerBody()?['data']?['essentials']?['monitorCondition']}"
           },
           %{ if message_tag != "" }
           {
             "type": "TextBlock",
+            "wrap": true,
             "text": "${message_tag}"
           },
           %{ endif }
           {
             "type": "TextBlock",
+            "wrap": true,
             "text": "*Alert Rule:* @{triggerBody()?['data']?['essentials']?['alertRule']} \n*Description:* @{triggerBody()?['data']?['essentials']?['description']}"
           },
           {
             "type": "TextBlock",
+            "wrap": true,
             "text": "*Resource:* \n <@{concat('https://portal.azure.com/#@', variables('tenantID'))}/resource@{triggerBody()?['data']?['essentials']?['alertTargetIDs']?[0]}|@{last(variables('affectedResource'))}>"
           },
           {
             "type": "TextBlock",
+            "wrap": true,
             "text": "*Severity:* \n @{variables('alarmSeverity')}"
           },
           {
             "type": "TextBlock",
+            "wrap": true,
             "text": "*Metric:* \n@{variables('alarmContext')['condition']['allOf'][0]['metricMeasureColumn']} @{variables('alarmContext')['condition']['allOf'][0]['timeAggregation']} @{variables('alarmContext')['condition']['allOf'][0]['operator']} @{variables('alarmContext')['condition']['allOf'][0]['threshold']}"
           },
           {
             "type": "TextBlock",
+            "wrap": true,
             "text": "*Recorded value:* \n@{variables('alarmContext')['condition']['allOf'][0]['metricValue']} \n <@{variables('alarmContext')['condition']['allOf'][0]['linkToFilteredSearchResultsUI']}|Go to Log Analytics and run query>"
           }
         ]
