@@ -10,9 +10,17 @@
         "version": "1.2",
         "body": [
           {
-            "type": "TextBlock",
-            "wrap": true,
-            "text": "@{triggerBody()?['data']?['essentials']?['alertRule']}: @{triggerBody()?['data']?['essentials']?['monitorCondition']}"
+            "type": "Container",
+            "style": "accent",
+            "items": [
+              {
+                "type": "TextBlock",
+                "wrap": true,
+                "text": "**@{triggerBody()?['data']?['essentials']?['alertRule']}: @{triggerBody()?['data']?['essentials']?['monitorCondition']}**",
+                "size": "large",
+                "horizontalAlignment": "center"
+              }
+            ]
           },
           %{ if message_tag != "" }
           {
