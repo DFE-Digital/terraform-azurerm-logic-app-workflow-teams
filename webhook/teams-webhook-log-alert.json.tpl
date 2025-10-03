@@ -24,27 +24,27 @@
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Alert Rule:* @{triggerBody()?['data']?['essentials']?['alertRule']} \n*Description:* @{triggerBody()?['data']?['essentials']?['description']}"
+            "text": "**Alert Rule:** @{triggerBody()?['data']?['essentials']?['alertRule']} \n**Description:** @{triggerBody()?['data']?['essentials']?['description']}"
           },
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Resource:* \n <@{concat('https://portal.azure.com/#@', variables('tenantID'))}/resource@{triggerBody()?['data']?['essentials']?['alertTargetIDs']?[0]}|@{last(variables('affectedResource'))}>"
+            "text": "**Resource:** \n [@{last(variables('affectedResource'))}](@{concat('https://portal.azure.com/#@', variables('tenantID'))}/resource@{triggerBody()?['data']?['essentials']?['alertTargetIDs']?[0]})"
           },
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Severity:* \n @{variables('alarmSeverity')}"
+            "text": "**Severity:** \n @{variables('alarmSeverity')}"
           },
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Metric:* \n@{variables('alarmContext')['condition']['allOf'][0]['metricMeasureColumn']} @{variables('alarmContext')['condition']['allOf'][0]['timeAggregation']} @{variables('alarmContext')['condition']['allOf'][0]['operator']} @{variables('alarmContext')['condition']['allOf'][0]['threshold']}"
+            "text": "**Metric:** \n@{variables('alarmContext')['condition']['allOf'][0]['metricMeasureColumn']} @{variables('alarmContext')['condition']['allOf'][0]['timeAggregation']} @{variables('alarmContext')['condition']['allOf'][0]['operator']} @{variables('alarmContext')['condition']['allOf'][0]['threshold']}"
           },
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "*Recorded value:* \n@{variables('alarmContext')['condition']['allOf'][0]['metricValue']} \n <@{variables('alarmContext')['condition']['allOf'][0]['linkToFilteredSearchResultsUI']}|Go to Log Analytics and run query>"
+            "text": "**Recorded value:** \n@{variables('alarmContext')['condition']['allOf'][0]['metricValue']} \n [Go to Log Analytics and run query](@{variables('alarmContext')['condition']['allOf'][0]['linkToFilteredSearchResultsUI']})"
           }
         ]
       }
