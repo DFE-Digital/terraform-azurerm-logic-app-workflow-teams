@@ -10,9 +10,17 @@
         "version": "1.2",
         "body": [
           {
-            "type": "TextBlock",
-            "wrap": true,
-            "text": "⚠️  @{triggerBody()?['data']?['essentials']?['description']}"
+            "type": "Container",
+            "style": "warning",
+            "items": [
+              {
+                "type": "TextBlock",
+                "wrap": true,
+                "text": "**⚠️  @{triggerBody()?['data']?['essentials']?['description']}**",
+                "size": "large",
+                "horizontalAlignment": "center"
+              }
+            ]
           },
           %{ if message_tag != "" }
           {
@@ -29,8 +37,13 @@
           {
             "type": "TextBlock",
             "wrap": true,
-            "text": "A HTTP request was `@{variables('alarmContext')['condition']['allOf'][0]['dimensions'][0]['value']}` by ruleset `@{variables('alarmContext')['condition']['allOf'][0]['dimensions'][2]['value']}`. \n[Go to Log Analytics and run query](@{variables('alarmContext')['condition']['allOf'][0]['linkToFilteredSearchResultsUI']})"
-          }
+            "text": "A HTTP request was `@{variables('alarmContext')['condition']['allOf'][0]['dimensions'][0]['value']}` by ruleset `@{variables('alarmContext')['condition']['allOf'][0]['dimensions'][2]['value']}`"
+          },
+          {
+            "type": "TextBlock",
+            "wrap": true,
+            "text": "[Go to Log Analytics and run query](@{variables('alarmContext')['condition']['allOf'][0]['linkToFilteredSearchResultsUI']})"
+          }          
         ]
       }
     }
